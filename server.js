@@ -37,7 +37,7 @@ app.get('/message/search', function(request, response) {
 });
 // Create Message
 app.post("/messages", function(request, response){
-  if(request.body.text && request.body.from ){
+  if(!request.body.text ){
     messages.push(request.body)
     response.json({'status'  : '200 OK'})
   }
