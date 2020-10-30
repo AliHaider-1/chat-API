@@ -20,16 +20,21 @@ const messages = [welcomeMessage]
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 });
-
-app.get('/message', function(request, response) {
+//All Messages
+app.get('/messages', function(request, response) {
   response.json(messages);
 });
-app.get('/message/:id', function(request, response) {
+//Message get by Id
+app.get('/messages/:id', function(request, response) {
      const Id = request.params.id;
-     const getMessage = welcomeMessage.find(item => item.id == Id);
+     const getMessage = messages.find(item => item.id == Id);
      response.json(getMessage);
 });
-
+//Message get by text Query
+app.put('/messages/search', function(request, response) {
+  const Input = request.query.input;
+  response.json(messages.filter(item => item.input.includes(Input)));  
+});
 
 
 
