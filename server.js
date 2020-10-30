@@ -21,6 +21,14 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 });
 
+app.get('/message', function(request, response) {
+  response.json(messages);
+});
+app.get('/message/:id', function(request, response) {
+     const Id = request.params.id;
+     const getMessage = welcomeMessage.find(item => item.id == Id);
+     response.json(getMessage);
+});
 
 
 
