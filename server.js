@@ -31,11 +31,16 @@ app.get('/messages/:id', function(request, response) {
      response.json(getMessage);
 });
 //Message get by text Query
-app.put('/messages/search', function(request, response) {
+app.get('/message/search', function(request, response) {
   const Input = request.query.input;
-  response.json(messages.filter(item => item.input.includes(Input)));  
+  response.json(messages.filter(item => item.text.includes(Input)));  
 });
-
+// Create Message
+app.post("/messages", function(request, response){
+  if(request.body.text && request.body.from){
+    messages.concat(request)
+  }
+})
 
 
 
