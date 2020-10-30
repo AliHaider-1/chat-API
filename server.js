@@ -37,10 +37,14 @@ app.get('/message/search', function(request, response) {
 });
 // Create Message
 app.post("/messages", function(request, response){
-  if(request.body.text && request.body.from){
-    messages.concat(request)
+  if(request.body.text && request.body.from ){
+    messages.push(request.body)
+    response.json({'status'  : '200 OK'})
   }
-})
+  else{
+    response.json({'status': '400 Not send'})
+  }
+});
 
 
 
