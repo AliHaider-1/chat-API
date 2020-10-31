@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require('cors')
 
 const app = express();
-
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
 app.use(cors())
 
 const welcomeMessage = {
@@ -31,21 +33,23 @@ app.get('/messages/:id', function(request, response) {
      response.json(getMessage);
 });
 //Message get by text Query
-app.get('/message/search', function(request, response) {
+app.put('/messages/search', function(request, response) {
   const Input = request.query.input;
   response.json(messages.filter(item => item.text.includes(Input)));  
 });
 // Create Message
 app.post("/messages", function(request, response){
-  if(!request.body.text ){
-    messages.push(request.body)
-    response.json({'status'  : '200 OK'})
+  if(request.body.text && request.body.from ){
+    let body = request.body;
+    messages.push(body)
+   response.json("sucess")
   }
   else{
-    response.json({'status': '400 Not send'})
+    response.json({'error': 'Message Field empty '})
   }
 });
 
 
-
-app.listen(process.env.PORT);
+app.listen(3000, function () {
+  console.log("Server is listening on port 3000. Ready to accept requests!");
+});
